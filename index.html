@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test Result Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    h1 { color: #333; }
+    h2 { color: #555; margin-top: 30px; text-transform: capitalize; }
+    ul { list-style: none; padding: 0; margin: 8px 0 24px 0; }
+    li { margin: 5px 0; }
+    a {
+      text-decoration: none;
+      color: #1a73e8;
+      padding: 6px 10px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      display: inline-block;
+      transition: 0.2s;
+    }
+    a:hover { background: #e8f0fe; }
+    .no-files { color: #777; margin: 6px 0 18px 0; }
+  </style>
+</head>
+<body>
+  <h1>Test Result Report</h1>
+
+  <div id="folders"></div>
+
+  <script>
+    // Define folders and their HTML files
+    const folders = {
+      "vendor": [
+        "Vendor-Registration.html",
+        "Vendor-Login.html",
+        "Vendor-My-Store.html",
+        "Vendor-Voucher-Manager.html",
+        "Vendor-Redemption-Tools.html",
+        "Vendor-Settings.html",
+        "Vendor-Help-Center.html"
+      ],
+      "member": [
+        "Member-Registration.html",
+        "Member-Login.html",
+        "Member-My-Account.html",
+        "Member-My-Deals.html",
+        "Member-Settings.html",
+        "Member-Help-Center.html",
+        "Member-referral-system.html"
+      ]
+    };
+
+    const container = document.getElementById("folders");
+
+    // If no folders defined
+    if (!folders || Object.keys(folders).length === 0) {
+      container.textContent = "No test results available.";
+    }
+
+    // Loop through folders
+    for (const [folderName, files] of Object.entries(folders)) {
+      const folderTitle = document.createElement("h2");
+      folderTitle.textContent = folderName;
+      container.appendChild(folderTitle);
+
+      if (!Array.isArray(files) || files.length === 0) {
+        const p = document.createElement("p");
+        p.className = "no-files";
+        p.textContent = "No files found.";
+        container.appendChild(p);
+        continue;
+      }
+
+      const ul = document.createElement("ul");
+
+      files.forEach(file => {
+        const li = document.createElement("li");
+        const link = document.createElement("a");
+        // Encode path segments to avoid issues with special characters or spaces
+        link.href = `${encodeURIComponent(folderName)}/${encodeURIComponent(file)}`;
+        link.textContent = file;
+        link.target = "_blank"; // open in new tab
+        link.rel = "noopener noreferrer"; // security improvement
+        li.appendChild(link);
+        ul.appendChild(li);
+      });
+
+      container.appendChild(ul);
+    }
+  </script>
+</body>
+</html>

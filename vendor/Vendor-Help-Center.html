@@ -1,0 +1,275 @@
+<h1 id="alimas-vendor-help-center---test-report">ALIMAS Vendor Help
+Center - Test Report</h1>
+<p><strong>Test Date:</strong> November 16, 2025<br />
+<strong>Environment:</strong> ALIMAS Staging Environment<br />
+<strong>Frontend URL:</strong>
+https://alimas-staging-production.up.railway.app/<br />
+<strong>Tester:</strong> Automated Testing (Playwright MCP)<br />
+<strong>Test Scope:</strong> Vendor Help Center Functionality</p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p><strong>Test Status:</strong> ❌ <strong>FAILED</strong></p>
+<p>The Vendor Help Center feature is <strong>non-functional</strong> due
+to a critical 404 error. The Help Center link is visible in the vendor
+dashboard navigation but leads to a page that does not exist.</p>
+<hr />
+<h2 id="test-environment-details">Test Environment Details</h2>
+<ul>
+<li><strong>Test URL:</strong>
+https://alimas-staging-production.up.railway.app/</li>
+<li><strong>Backend API:</strong>
+https://alimas-be-staging-production.up.railway.app</li>
+<li><strong>Test Account:</strong> Vendor (testvendor@example.com)</li>
+<li><strong>Browser:</strong> Chromium (Playwright)</li>
+<li><strong>Test Date:</strong> November 16, 2025</li>
+</ul>
+<hr />
+<h2 id="test-execution-steps">Test Execution Steps</h2>
+<h3 id="navigation-to-application">1. Navigation to Application ✅</h3>
+<ul>
+<li><strong>Action:</strong> Navigated to
+https://alimas-staging-production.up.railway.app/</li>
+<li><strong>Result:</strong> SUCCESS</li>
+<li><strong>Details:</strong> Homepage loaded successfully with all UI
+elements visible</li>
+</ul>
+<h3 id="vendor-login-process">2. Vendor Login Process ✅</h3>
+<ul>
+<li><strong>Action:</strong> Clicked “Log In” button in header</li>
+<li><strong>Result:</strong> SUCCESS</li>
+<li><strong>Details:</strong> Modal dialog appeared with two options:
+“Join as a Member” and “Join as a Vendor”</li>
+</ul>
+<h3 id="vendor-login-form">3. Vendor Login Form ✅</h3>
+<ul>
+<li><strong>Action:</strong> Selected “Join as a Vendor” option</li>
+<li><strong>Result:</strong> SUCCESS</li>
+<li><strong>Details:</strong> Vendor login form appeared with email and
+password fields</li>
+</ul>
+<h3 id="authentication">4. Authentication ✅</h3>
+<ul>
+<li><strong>Action:</strong> Entered vendor credentials
+<ul>
+<li>Email: testvendor@example.com</li>
+<li>Password: Test123456</li>
+</ul></li>
+<li><strong>Result:</strong> SUCCESS</li>
+<li><strong>Details:</strong> Successfully authenticated and redirected
+to vendor dashboard</li>
+</ul>
+<h3 id="vendor-dashboard-access">5. Vendor Dashboard Access ✅</h3>
+<ul>
+<li><strong>Action:</strong> Accessed /vendor/my-store</li>
+<li><strong>Result:</strong> SUCCESS</li>
+<li><strong>Details:</strong> Vendor dashboard loaded with all
+navigation elements:
+<ul>
+<li>Main Menu: My Store, Voucher Manager, Redemption Tools, Report &amp;
+Payout</li>
+<li>More Section: Settings, Help Center</li>
+</ul></li>
+</ul>
+<h3 id="help-center-navigation-critical-failure">6. Help Center
+Navigation ❌ <strong>CRITICAL FAILURE</strong></h3>
+<ul>
+<li><strong>Action:</strong> Clicked on “Help Center” link in
+sidebar</li>
+<li><strong>Result:</strong> FAILURE - 404 Error</li>
+<li><strong>Expected:</strong> Help Center page with support
+documentation</li>
+<li><strong>Actual:</strong> “404 - This page could not be found.”</li>
+<li><strong>URL Attempted:</strong>
+https://alimas-staging-production.up.railway.app/vendor/help</li>
+</ul>
+<hr />
+<h2 id="critical-issues-found">Critical Issues Found</h2>
+<h3 id="issue-1-help-center-page-does-not-exist">Issue #1: Help Center
+Page Does Not Exist</h3>
+<p><strong>Severity:</strong> 🔴 <strong>HIGH - Critical</strong></p>
+<p><strong>Issue Type:</strong> Missing Page / Broken Navigation</p>
+<p><strong>Description:</strong> The Help Center link in the vendor
+dashboard sidebar points to <code>/vendor/help</code>, but this route
+returns a 404 error indicating the page has not been implemented.</p>
+<p><strong>Steps to Reproduce:</strong> 1. Login as vendor with
+credentials from test data 2. Navigate to vendor dashboard
+(/vendor/my-store) 3. Click on “Help Center” link in the sidebar under
+“More” section 4. Observe 404 error page</p>
+<p><strong>Expected Behavior:</strong> - Help Center page should load
+with vendor support resources - Should display FAQ, documentation, or
+contact support options - Should be accessible to logged-in vendors</p>
+<p><strong>Actual Behavior:</strong> - 404 error page displayed -
+Message: “This page could not be found.” - No help or support content
+available</p>
+<p><strong>Technical Details:</strong></p>
+<pre><code>URL: https://alimas-staging-production.up.railway.app/vendor/help
+HTTP Status: 404 Not Found
+Console Error: Failed to load resource: the server responded with a status of 404 ()
+Error Path: /vendor/help?_rsc=6yfje</code></pre>
+<p><strong>Impact:</strong> - Vendors cannot access help or support
+resources - Poor user experience for vendors needing assistance -
+Missing critical support functionality - Violates user expectations for
+a help/support section</p>
+<p><strong>Screenshots:</strong> - help_center_404_error.png - Shows the
+404 error page - vendor_dashboard.png - Shows Help Center link in
+sidebar</p>
+<hr />
+<h2 id="console-errors-warnings">Console Errors &amp; Warnings</h2>
+<h3 id="errors">Errors</h3>
+<ol type="1">
+<li><p><strong>404 Resource Not Found</strong></p>
+<pre><code>Failed to load resource: the server responded with a status of 404 ()
+URL: https://alimas-staging-production.up.railway.app/vendor/help?_rsc=6yfje</code></pre></li>
+</ol>
+<h3 id="warnings">Warnings</h3>
+<ol type="1">
+<li><p><strong>Multiple GoTrueClient Instances</strong></p>
+<pre><code>GoTrueClient@sb-rbywyhobgshsocthbywu-auth-token:1 (2.81.1) 
+Multiple GoTrueClient instances detected in the same browser context.</code></pre></li>
+<li><p><strong>Unused Preloaded CSS Resource</strong></p>
+<pre><code>The resource https://alimas-staging-production.up.railway.app/_next/static/css/a278e8c88d212ee2.css 
+was preloaded using link preload but not used within a few seconds</code></pre></li>
+</ol>
+<hr />
+<h2 id="vendor-dashboard-features-verified">Vendor Dashboard Features
+(Verified)</h2>
+<h3 id="working-features">Working Features ✅</h3>
+<ul>
+<li><strong>My Store</strong> - Accessible at /vendor/my-store</li>
+<li><strong>Voucher Manager</strong> - Link present at
+/vendor/voucher-manager</li>
+<li><strong>Redemption Tools</strong> - Link present at
+/vendor/redemption-tools</li>
+<li><strong>Report &amp; Payout</strong> - Link present at
+/vendor/reports-payout</li>
+<li><strong>Settings</strong> - Link present at /vendor/settings</li>
+</ul>
+<h3 id="non-working-features">Non-Working Features ❌</h3>
+<ul>
+<li><strong>Help Center</strong> - Returns 404 error at
+/vendor/help</li>
+</ul>
+<hr />
+<h2 id="vendor-dashboard-ui-elements">Vendor Dashboard UI Elements</h2>
+<h3 id="sidebar-navigation">Sidebar Navigation</h3>
+<ul>
+<li><strong>ALIMAS Vendor Center</strong> branding displayed</li>
+<li><strong>Main Menu</strong> section with 4 items</li>
+<li><strong>More</strong> section with 2 items (Settings, Help
+Center)</li>
+<li>Toggle sidebar button functional</li>
+</ul>
+<h3 id="top-header">Top Header</h3>
+<ul>
+<li>Messages icon/button</li>
+<li>Notifications icon/button</li>
+<li>User profile dropdown (QueenSauna)</li>
+</ul>
+<h3 id="store-profile-section">Store Profile Section</h3>
+<ul>
+<li>Store name: “Test Vendor”</li>
+<li>Display name: “QueenSauna”</li>
+<li>Google Maps integration (Federal Territory of Kuala Lumpur)</li>
+<li>Avatar upload functionality</li>
+<li>“Add Address” button</li>
+<li>“Add Photos” button</li>
+<li>Photo gallery section</li>
+</ul>
+<hr />
+<h2 id="recommendations">Recommendations</h2>
+<h3 id="priority-1---critical-immediate-action-required">Priority 1 -
+Critical (Immediate Action Required)</h3>
+<ol type="1">
+<li><strong>Implement Help Center Page</strong>
+<ul>
+<li>Create <code>/vendor/help</code> route and page component</li>
+<li>Include vendor support documentation</li>
+<li>Add FAQ section for common vendor questions</li>
+<li>Provide contact support options</li>
+</ul></li>
+<li><strong>Remove or Disable Non-Functional Link</strong>
+<ul>
+<li>If Help Center cannot be implemented immediately, temporarily
+disable or hide the link</li>
+<li>Add “Coming Soon” badge if feature is under development</li>
+</ul></li>
+</ol>
+<h3 id="priority-2---high-should-address-soon">Priority 2 - High (Should
+Address Soon)</h3>
+<ol start="3" type="1">
+<li><strong>Add Error Handling</strong>
+<ul>
+<li>Implement proper error handling for missing routes</li>
+<li>Create custom 404 page with navigation back to dashboard</li>
+<li>Log 404 errors for monitoring</li>
+</ul></li>
+<li><strong>Fix Multiple GoTrueClient Warning</strong>
+<ul>
+<li>Review authentication implementation</li>
+<li>Ensure only one instance of GoTrueClient is created</li>
+<li>May cause authentication issues if not addressed</li>
+</ul></li>
+</ol>
+<h3 id="priority-3---medium-performance-optimization">Priority 3 -
+Medium (Performance Optimization)</h3>
+<ol start="5" type="1">
+<li><strong>Optimize CSS Preloading</strong>
+<ul>
+<li>Review and fix unused CSS preload resources</li>
+<li>Improve page load performance</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="test-evidence">Test Evidence</h2>
+<h3 id="screenshots-captured">Screenshots Captured</h3>
+<ol type="1">
+<li><code>help_center_404_error.png</code> - 404 error page when
+accessing Help Center</li>
+<li><code>vendor_dashboard.png</code> - Vendor dashboard showing Help
+Center link in sidebar</li>
+</ol>
+<h3 id="browser-information">Browser Information</h3>
+<ul>
+<li><strong>User Agent:</strong> Playwright Chromium</li>
+<li><strong>Viewport:</strong> 1280x720 (default)</li>
+<li><strong>JavaScript:</strong> Enabled</li>
+<li><strong>Cookies:</strong> Enabled</li>
+</ul>
+<hr />
+<h2 id="testing-notes">Testing Notes</h2>
+<h3 id="authentication-flow">Authentication Flow</h3>
+<ul>
+<li>Vendor login works correctly via the modal selection process</li>
+<li>Authentication persists across page navigation</li>
+<li>Vendor session maintained properly</li>
+</ul>
+<h3 id="known-issues-from-test-credentials">Known Issues from Test
+Credentials</h3>
+<p>According to the test credentials file, there is a known issue with
+vendor re-login: &gt; “Vendor login currently returns HTTP 401
+(Unauthorized) error. This is a known issue - registered vendors cannot
+log back in.”</p>
+<p><strong>Test Result:</strong> This issue was <strong>NOT</strong>
+encountered during this test session. Login worked successfully.</p>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>The ALIMAS Vendor Help Center feature requires immediate attention as
+it is completely non-functional. While the vendor dashboard and login
+functionality work as expected, the missing Help Center page represents
+a critical gap in vendor support infrastructure.</p>
+<p><strong>Action Required:</strong> - Implement Help Center page at
+<code>/vendor/help</code> - Or remove/hide the Help Center link until
+implementation is complete</p>
+<p><strong>Estimated Impact:</strong> - <strong>User
+Experience:</strong> High negative impact -
+<strong>Functionality:</strong> Critical missing feature -
+<strong>Business Impact:</strong> Vendors unable to access support
+resources</p>
+<hr />
+<h2 id="test-completion">Test Completion</h2>
+<p><strong>Test Started:</strong> 2025-11-16 23:47:00 UTC<br />
+<strong>Test Completed:</strong> 2025-11-16 23:52:00 UTC<br />
+<strong>Total Duration:</strong> ~5 minutes<br />
+<strong>Test Result:</strong> ❌ FAILED - Critical issue identified</p>
+<p><strong>Sign-off:</strong> Automated Test Report Generated by
+Playwright MCP</p>

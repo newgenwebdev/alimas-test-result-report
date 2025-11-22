@@ -1,0 +1,359 @@
+<h1 id="alimas-vendor-login-test-report">ALIMAS Vendor Login Test
+Report</h1>
+<p><strong>Test Date:</strong> November 16, 2025<br />
+<strong>Environment:</strong> ALIMAS Staging Environment<br />
+<strong>Frontend URL:</strong>
+https://alimas-staging-production.up.railway.app/<br />
+<strong>Backend API URL:</strong>
+https://alimas-be-staging-production.up.railway.app<br />
+<strong>Testing Tool:</strong> Playwright MCP<br />
+<strong>Test Focus:</strong> Vendor Login Functionality</p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>This report documents comprehensive testing of the ALIMAS vendor
+login functionality, including tests with valid credentials, invalid
+credentials, and various edge cases. The testing revealed a
+<strong>critical authentication issue</strong> where vendor login
+consistently returns HTTP 401 (Unauthorized) errors even with valid
+credentials. Client-side validation is working correctly.</p>
+<hr />
+<h2 id="test-environment">Test Environment</h2>
+<ul>
+<li><strong>Browser:</strong> Chromium (via Playwright)</li>
+<li><strong>Test Method:</strong> Automated UI Testing with Playwright
+MCP</li>
+<li><strong>Login URL:</strong>
+https://alimas-staging-production.up.railway.app/?login=vendor</li>
+<li><strong>Valid Vendor Credentials:</strong>
+<ul>
+<li>Email: testvendor@example.com</li>
+<li>Password: Test123456</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="test-cases-and-results">Test Cases and Results</h2>
+<h3
+id="test-case-1-valid-credentials-login-executed-failed-known-issue">Test
+Case 1: Valid Credentials Login ✅ EXECUTED | ❌ FAILED (Known
+Issue)</h3>
+<p><strong>Objective:</strong> Verify that a registered vendor can
+successfully log in with correct credentials.</p>
+<p><strong>Test Data:</strong> - Email: testvendor@example.com -
+Password: Test123456</p>
+<p><strong>Steps:</strong> 1. Navigate to homepage 2. Click “Log In”
+button 3. Select “Join as a Vendor” 4. Enter valid email address 5.
+Enter valid password 6. Click “Log In” button</p>
+<p><strong>Expected Result:</strong> - Successful authentication -
+Redirect to <code>/vendor/my-store</code> dashboard - HTTP 200
+response</p>
+<p><strong>Actual Result:</strong> - ❌ Authentication failed -
+Redirected back to homepage (/) - <strong>HTTP 401 (Unauthorized)
+errors</strong> in console - Error message: “Invalid credentials” (even
+though credentials are correct)</p>
+<p><strong>Status:</strong> ❌ <strong>FAILED - CRITICAL
+BUG</strong></p>
+<p><strong>Console Errors:</strong></p>
+<pre><code>Failed to load resource: the server responded with a status of 401 ()
+Failed to load resource: the server responded with a status of 401 ()</code></pre>
+<p><strong>Notes:</strong> This is a <strong>known issue</strong>
+documented in the test credentials file: “Vendor login currently returns
+HTTP 401 (Unauthorized) error. This is a known issue - registered
+vendors cannot log back in. Investigation needed for authentication
+flow.”</p>
+<hr />
+<h3 id="test-case-2-invalid-email-format-executed-passed">Test Case 2:
+Invalid Email Format ✅ EXECUTED | ✅ PASSED</h3>
+<p><strong>Objective:</strong> Verify that the system validates email
+format before submission.</p>
+<p><strong>Test Data:</strong> - Email: invalid-email (no @ symbol) -
+Password: Test123456</p>
+<p><strong>Steps:</strong> 1. Navigate to vendor login form 2. Enter
+invalid email format (no @ symbol) 3. Enter valid password 4. Click “Log
+In” button</p>
+<p><strong>Expected Result:</strong> - HTML5 validation prevents form
+submission - Display error message about invalid email format - Form
+remains on login page</p>
+<p><strong>Actual Result:</strong> - ✅ Form submission blocked by HTML5
+validation - ✅ Error message displayed: <strong>“Please include an ‘@’
+in the email address. ‘invalid-email’ is missing an ‘@’.”</strong> - ✅
+Form remained on login page - ✅ Email field highlighted with validation
+error</p>
+<p><strong>Status:</strong> ✅ <strong>PASSED</strong></p>
+<p><strong>Screenshot:</strong>
+<code>vendor_login_invalid_email_format.png</code></p>
+<p><strong>Validation Type:</strong> Client-side HTML5 validation</p>
+<hr />
+<h3 id="test-case-3-wrong-password-executed-passed">Test Case 3: Wrong
+Password ✅ EXECUTED | ✅ PASSED</h3>
+<p><strong>Objective:</strong> Verify that the system rejects login
+attempts with incorrect passwords.</p>
+<p><strong>Test Data:</strong> - Email: testvendor@example.com (valid,
+registered email) - Password: WrongPassword123 (incorrect password)</p>
+<p><strong>Steps:</strong> 1. Navigate to vendor login form 2. Enter
+valid email address 3. Enter incorrect password 4. Click “Log In”
+button</p>
+<p><strong>Expected Result:</strong> - Authentication fails - HTTP 401
+(Unauthorized) response - Display “Invalid credentials” error message -
+Redirect back to homepage</p>
+<p><strong>Actual Result:</strong> - ✅ Authentication failed as
+expected - ✅ <strong>HTTP 401 (Unauthorized) errors</strong> in console
+- ✅ Error message: <strong>“ApiError: Invalid credentials”</strong> -
+✅ Redirected back to homepage</p>
+<p><strong>Status:</strong> ✅ <strong>PASSED</strong></p>
+<p><strong>Console Errors:</strong></p>
+<pre><code>Failed to load resource: the server responded with a status of 401 ()
+ApiError: Invalid credentials</code></pre>
+<p><strong>Notes:</strong> The system correctly identifies invalid
+credentials and provides appropriate error feedback.</p>
+<hr />
+<h3 id="test-case-4-non-existent-email-executed-passed">Test Case 4:
+Non-Existent Email ✅ EXECUTED | ✅ PASSED</h3>
+<p><strong>Objective:</strong> Verify that the system rejects login
+attempts with non-registered email addresses.</p>
+<p><strong>Test Data:</strong> - Email: nonexistent@example.com (not
+registered in system) - Password: Test123456</p>
+<p><strong>Steps:</strong> 1. Navigate to vendor login form 2. Enter
+non-existent email address 3. Enter any password 4. Click “Log In”
+button</p>
+<p><strong>Expected Result:</strong> - Authentication fails - HTTP 401
+(Unauthorized) response - Display “Invalid credentials” error message -
+Redirect back to homepage</p>
+<p><strong>Actual Result:</strong> - ✅ Authentication failed as
+expected - ✅ <strong>HTTP 401 (Unauthorized) errors</strong> in console
+- ✅ Error message: <strong>“ApiError: Invalid credentials”</strong> -
+✅ Redirected back to homepage</p>
+<p><strong>Status:</strong> ✅ <strong>PASSED</strong></p>
+<p><strong>Console Errors:</strong></p>
+<pre><code>Failed to load resource: the server responded with a status of 401 ()
+ApiError: Invalid credentials</code></pre>
+<p><strong>Notes:</strong> The system correctly prevents unauthorized
+access and does not reveal whether the email exists in the system (good
+security practice).</p>
+<hr />
+<h3 id="test-case-5-empty-fields-executed-passed">Test Case 5: Empty
+Fields ✅ EXECUTED | ✅ PASSED</h3>
+<p><strong>Objective:</strong> Verify that the system requires both
+email and password fields to be filled.</p>
+<p><strong>Test Data:</strong> - Email: (empty) - Password: (empty)</p>
+<p><strong>Steps:</strong> 1. Navigate to vendor login form 2. Leave
+both fields empty 3. Click “Log In” button</p>
+<p><strong>Expected Result:</strong> - HTML5 validation prevents form
+submission - Display error message requiring field to be filled - Form
+remains on login page</p>
+<p><strong>Actual Result:</strong> - ✅ Form submission blocked by HTML5
+validation - ✅ Error message displayed: <strong>“Please fill out this
+field.”</strong> - ✅ Form remained on login page - ✅ Email field
+focused and highlighted</p>
+<p><strong>Status:</strong> ✅ <strong>PASSED</strong></p>
+<p><strong>Screenshot:</strong>
+<code>vendor_login_empty_fields.png</code></p>
+<p><strong>Validation Type:</strong> Client-side HTML5 validation</p>
+<hr />
+<h2 id="summary-of-findings">Summary of Findings</h2>
+<h3 id="critical-issues">Critical Issues 🔴</h3>
+<ol type="1">
+<li><strong>Vendor Login Authentication Failure (CRITICAL)</strong>
+<ul>
+<li><strong>Issue:</strong> Vendor login returns HTTP 401 even with
+valid, registered credentials</li>
+<li><strong>Impact:</strong> Vendors cannot log back into their accounts
+after registration</li>
+<li><strong>Affected Credential:</strong> testvendor@example.com /
+Test123456</li>
+<li><strong>Error:</strong> “Invalid credentials” despite correct
+credentials</li>
+<li><strong>Status:</strong> Known issue requiring investigation of
+authentication flow</li>
+<li><strong>Priority:</strong> <strong>HIGH - Blocks vendor
+functionality</strong></li>
+</ul></li>
+</ol>
+<h3 id="positive-findings">Positive Findings ✅</h3>
+<ol type="1">
+<li><strong>Client-Side Validation Working Correctly</strong>
+<ul>
+<li>HTML5 email format validation functioning properly</li>
+<li>Required field validation working as expected</li>
+<li>Appropriate error messages displayed to users</li>
+</ul></li>
+<li><strong>Security Implementation</strong>
+<ul>
+<li>System does not reveal whether email exists in database</li>
+<li>Same error message for wrong password and non-existent email
+(prevents user enumeration)</li>
+<li>Proper HTTP 401 responses for authentication failures</li>
+</ul></li>
+<li><strong>User Experience</strong>
+<ul>
+<li>Clear error messages for validation failures</li>
+<li>Form remains populated when validation fails</li>
+<li>Visual feedback (field highlighting) for errors</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="test-statistics">Test Statistics</h2>
+<table>
+<thead>
+<tr>
+<th>Test Case</th>
+<th>Status</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Valid Credentials Login</td>
+<td>❌ FAILED</td>
+<td>CRITICAL</td>
+</tr>
+<tr>
+<td>Invalid Email Format</td>
+<td>✅ PASSED</td>
+<td>HIGH</td>
+</tr>
+<tr>
+<td>Wrong Password</td>
+<td>✅ PASSED</td>
+<td>HIGH</td>
+</tr>
+<tr>
+<td>Non-Existent Email</td>
+<td>✅ PASSED</td>
+<td>MEDIUM</td>
+</tr>
+<tr>
+<td>Empty Fields</td>
+<td>✅ PASSED</td>
+<td>HIGH</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Overall Pass Rate:</strong> 4/5 (80%)<br />
+<strong>Critical Issues:</strong> 1<br />
+<strong>Blocking Issues:</strong> 1</p>
+<hr />
+<h2 id="recommendations">Recommendations</h2>
+<h3 id="immediate-actions-required">Immediate Actions Required</h3>
+<ol type="1">
+<li><strong>Fix Vendor Authentication (PRIORITY 1)</strong>
+<ul>
+<li>Investigate why valid vendor credentials return 401 errors</li>
+<li>Check backend authentication logic for vendor role</li>
+<li>Verify vendor session management</li>
+<li>Review vendor authentication endpoints</li>
+<li>Compare with member login flow (which works correctly)</li>
+</ul></li>
+<li><strong>Backend Investigation Points</strong>
+<ul>
+<li>Verify <code>/api/auth/login</code> endpoint handles vendor role
+correctly</li>
+<li>Check database for vendor user record (testvendor@example.com)</li>
+<li>Review authentication token generation for vendors</li>
+<li>Check for role-specific authentication logic</li>
+</ul></li>
+<li><strong>Add Server-Side Error Messaging</strong>
+<ul>
+<li>While client-side validation works, consider adding user-friendly
+error messages</li>
+<li>Display authentication errors in UI instead of only console</li>
+<li>Add toast/alert notifications for login failures</li>
+</ul></li>
+</ol>
+<h3 id="future-enhancements">Future Enhancements</h3>
+<ol type="1">
+<li><strong>Enhanced Error Handling</strong>
+<ul>
+<li>Add visual feedback for server-side errors on the login form</li>
+<li>Implement rate limiting feedback for failed attempts</li>
+<li>Add “Forgot Password” functionality</li>
+</ul></li>
+<li><strong>Testing Infrastructure</strong>
+<ul>
+<li>Set up automated regression tests for authentication</li>
+<li>Add monitoring for authentication failures</li>
+<li>Implement logging for 401 errors</li>
+</ul></li>
+<li><strong>User Experience</strong>
+<ul>
+<li>Add loading indicators during authentication</li>
+<li>Implement “Remember me” functionality</li>
+<li>Add password visibility toggle</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="technical-details">Technical Details</h2>
+<h3 id="api-endpoints-tested">API Endpoints Tested</h3>
+<ul>
+<li><code>/api/auth/login</code> - Login endpoint (returns 401 for
+vendor)</li>
+</ul>
+<h3 id="http-response-codes-observed">HTTP Response Codes Observed</h3>
+<ul>
+<li><strong>200:</strong> Not observed (should be success response)</li>
+<li><strong>401:</strong> Unauthorized (all login attempts, including
+valid credentials)</li>
+</ul>
+<h3 id="browser-console-errors">Browser Console Errors</h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Error for valid credentials (incorrect behavior)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Failed to load resource<span class="op">:</span> the server responded <span class="cf">with</span> a status <span class="kw">of</span> <span class="dv">401</span> ()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ApiError<span class="op">:</span> Invalid credentials</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Error for invalid credentials (correct behavior)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Failed to load resource<span class="op">:</span> the server responded <span class="cf">with</span> a status <span class="kw">of</span> <span class="dv">401</span> ()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>ApiError<span class="op">:</span> Invalid credentials</span></code></pre></div>
+<h3 id="form-validation">Form Validation</h3>
+<ul>
+<li><strong>Email Field:</strong> HTML5 type=“email” validation
+active</li>
+<li><strong>Password Field:</strong> HTML5 required attribute
+active</li>
+<li><strong>Validation Timing:</strong> On submit (browser default)</li>
+</ul>
+<hr />
+<h2 id="test-artifacts">Test Artifacts</h2>
+<h3 id="screenshots-captured">Screenshots Captured</h3>
+<ol type="1">
+<li><code>vendor_login_invalid_email_format.png</code> - Shows HTML5
+email validation error</li>
+<li><code>vendor_login_empty_fields.png</code> - Shows required field
+validation error</li>
+</ol>
+<h3 id="test-credentials-used">Test Credentials Used</h3>
+<p>From: <code>ALIMAS_Test_Credentials.json</code></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;vendor&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Test Vendor&quot;</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;email&quot;</span><span class="fu">:</span> <span class="st">&quot;testvendor@example.com&quot;</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;password&quot;</span><span class="fu">:</span> <span class="st">&quot;Test123456&quot;</span><span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;role&quot;</span><span class="fu">:</span> <span class="st">&quot;vendor&quot;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>The vendor login functionality has <strong>one critical
+blocker</strong> preventing vendors from accessing their accounts. While
+client-side validation is working correctly and security measures are
+properly implemented, the backend authentication issue makes the vendor
+login feature completely non-functional.</p>
+<p><strong>The vendor authentication issue must be resolved before the
+system can be considered production-ready.</strong></p>
+<p>All other tested scenarios (validation, error handling for invalid
+credentials) are working as expected. Once the authentication issue is
+fixed, a retest of Test Case 1 (Valid Credentials Login) should be
+performed to verify the fix.</p>
+<hr />
+<h2 id="next-steps">Next Steps</h2>
+<ol type="1">
+<li>✅ Report findings to development team</li>
+<li>⏳ Backend team to investigate vendor authentication flow</li>
+<li>⏳ Fix vendor login authentication issue</li>
+<li>⏳ Retest with valid vendor credentials after fix</li>
+<li>⏳ Perform full regression testing on vendor features</li>
+</ol>
+<hr />
+<p><strong>Report Prepared By:</strong> AI Testing Assistant<br />
+<strong>Test Execution Date:</strong> November 16, 2025<br />
+<strong>Report Generated:</strong> November 16, 2025<br />
+<strong>Testing Tool:</strong> Playwright MCP v3.0</p>

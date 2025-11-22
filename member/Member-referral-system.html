@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral System Test Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+        }
+        
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 30px 0;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .status-success {
+            color: #27ae60;
+        }
+        
+        .status-warning {
+            color: #f39c12;
+        }
+        
+        .status-error {
+            color: #e74c3c;
+        }
+        
+        .test-step {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+        }
+        
+        .test-step.partial {
+            border-left-color: #f39c12;
+        }
+        
+        .summary-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .summary-section h3 {
+            margin-top: 0;
+        }
+        
+        .account-info {
+            background-color: #e8f4f8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+        }
+        
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .emoji {
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Referral System Test Report</h1>
+        <p><strong>Test Date:</strong> November 22, 2025</p>
+        <p><strong>Test Application:</strong> Alimas Staging - <a href="https://alimas-staging-production.up.railway.app/" target="_blank">https://alimas-staging-production.up.railway.app/</a></p>
+        <p><strong>Testing Tool:</strong> Playwright MCP</p>
+
+        <h2>Test Objective</h2>
+        <p>To verify that the referral system correctly establishes and displays referral connections between members.</p>
+
+        <hr>
+
+        <h2>Test Steps Executed</h2>
+
+        <div class="test-step">
+            <h3>1. Login as Original Member <span class="emoji">✅</span></h3>
+            <ul>
+                <li><strong>Email:</strong> testmember@example.com</li>
+                <li><strong>Password:</strong> Test123456</li>
+                <li><strong>Status:</strong> <span class="status-success">SUCCESS</span></li>
+                <li><strong>Result:</strong> Successfully logged into member dashboard</li>
+            </ul>
+        </div>
+
+        <div class="test-step">
+            <h3>2. Copy Referral Code <span class="emoji">✅</span></h3>
+            <ul>
+                <li><strong>Action:</strong> Navigated to "My Account" page</li>
+                <li><strong>Referral Code Found:</strong> <code>TEVEY8RK</code></li>
+                <li><strong>Status:</strong> <span class="status-success">SUCCESS</span></li>
+                <li><strong>Result:</strong> Referral code copied successfully</li>
+            </ul>
+        </div>
+
+        <div class="test-step">
+            <h3>3. Register New Member with Referral Code <span class="emoji">✅</span></h3>
+            <p><strong>New Member Details:</strong></p>
+            <ul>
+                <li><strong>Name:</strong> New Test Member</li>
+                <li><strong>Email:</strong> newmember1763787286071@example.com</li>
+                <li><strong>Password:</strong> Test123456</li>
+                <li><strong>Phone:</strong> +60987654321</li>
+                <li><strong>Referral Code Used:</strong> <code>TEVEY8RK</code></li>
+            </ul>
+            <p><strong>Status:</strong> <span class="status-success">SUCCESS</span></p>
+            <p><strong>Result:</strong> New member account successfully created</p>
+        </div>
+
+        <div class="test-step">
+            <h3>4. Verify Referral Connection in New Member Account <span class="emoji">✅</span></h3>
+            <ul>
+                <li><strong>Action:</strong> Logged in as new member (newmember1763787286071@example.com)</li>
+                <li><strong>Status:</strong> <span class="status-success">SUCCESS</span></li>
+                <li><strong>Findings:</strong>
+                    <ul>
+                        <li>New member's referral code: <code>NEL7KRKD</code></li>
+                        <li><strong>Referral Network Tree displays:</strong>
+                            <ul>
+                                <li><strong>Test User Member (TEVEY8RK)</strong> - Level 1 - RM 100 (shown as upline/referrer)</li>
+                                <li><strong>New Test Member (NEL7KRKD)</strong> - Level 0 (current user)</li>
+                            </ul>
+                        </li>
+                        <li>Clear hierarchical relationship established</li>
+                        <li>Legend shows proper color coding for uplines vs current user</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="test-step partial">
+            <h3>5. Verify Referral Connection in Original Member Account <span class="emoji">⚠️</span></h3>
+            <ul>
+                <li><strong>Action:</strong> Logged back in as testmember@example.com</li>
+                <li><strong>Pages Checked:</strong>
+                    <ul>
+                        <li>My Account page</li>
+                        <li>Report & Payout page</li>
+                    </ul>
+                </li>
+                <li><strong>Status:</strong> <span class="status-warning">PARTIAL</span></li>
+                <li><strong>Findings:</strong>
+                    <p><strong>My Account Page:</strong></p>
+                    <ul>
+                        <li>Referral Network Tree shows only "Test User Member (TEVEY8RK) - Level 0"</li>
+                        <li>Downline (New Test Member) not visible in tree visualization</li>
+                    </ul>
+                    <p><strong>Report & Payout Page:</strong></p>
+                    <ul>
+                        <li>Total Referrals: 0</li>
+                        <li>Level 1 (Direct): 0</li>
+                        <li>Table message: "No referrals yet. Share your referral code to start earning commissions!"</li>
+                        <li>Tried "Refresh" button - no change</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <h2>Test Results Summary</h2>
+
+        <div class="summary-section">
+            <h3><span class="emoji">✅</span> <strong>PASSED Components:</strong></h3>
+            <ol>
+                <li>Member login functionality</li>
+                <li>Referral code generation and display</li>
+                <li>New member registration with referral code</li>
+                <li><strong>Upline relationship visibility</strong> - New member correctly shows Test User Member as referrer</li>
+                <li>Hierarchical tree structure in new member's view</li>
+            </ol>
+        </div>
+
+        <div class="summary-section">
+            <h3><span class="emoji">⚠️</span> <strong>ISSUES IDENTIFIED:</strong></h3>
+            <ol>
+                <li><strong>Downline visibility issue:</strong> The original referrer (testmember@example.com) cannot see the referred member in their:
+                    <ul>
+                        <li>Referral Network Tree (My Account page)</li>
+                        <li>Report & Payout statistics</li>
+                        <li>Referrals table</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="summary-section">
+            <h3><span class="emoji">✅</span> <strong>VERIFIED FUNCTIONALITY:</strong></h3>
+            <ul>
+                <li><strong>Referral link creation:</strong> YES - Connection established in database</li>
+                <li><strong>Upline tracking:</strong> YES - New member correctly identifies referrer</li>
+                <li><strong>Downline tracking:</strong> NO - Referrer cannot see referred members</li>
+                <li><strong>Visual tree display:</strong> PARTIAL - Works for uplines, not for downlines</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <h2>Technical Observations</h2>
+        <ol>
+            <li><strong>Database Connection:</strong> The referral relationship IS being saved (confirmed by upline visibility in new member account)</li>
+            <li><strong>UI Display Issue:</strong> The downline information is not being fetched or displayed in the referrer's dashboard</li>
+            <li><strong>Possible Causes:</strong>
+                <ul>
+                    <li>Frontend query not fetching downline data</li>
+                    <li>Permission/role issue preventing downline visibility</li>
+                    <li>API endpoint not returning complete tree structure for referrers</li>
+                    <li>Time lag in data synchronization (though refresh didn't help)</li>
+                    <li>Feature might require membership fee payment to activate</li>
+                </ul>
+            </li>
+            <li><strong>Network Tree Behavior:</strong>
+                <ul>
+                    <li>Shows uplines correctly</li>
+                    <li>Shows current user correctly</li>
+                    <li>Does not show downlines (children nodes)</li>
+                </ul>
+            </li>
+        </ol>
+
+        <hr>
+
+        <h2>Screenshots Evidence</h2>
+
+        <h3>New Member Account View</h3>
+        <ul>
+            <li>Clearly shows "Test User Member" at Level 1 (upline)</li>
+            <li>Shows "New Test Member" at Level 0 (current user)</li>
+            <li>Connection displayed with "RM 100" indicator</li>
+        </ul>
+
+        <h3>Original Member Account View</h3>
+        <ul>
+            <li>Only shows "Test User Member" at Level 0</li>
+            <li>No downlines visible despite successful referral</li>
+        </ul>
+
+        <hr>
+
+        <h2>Conclusion</h2>
+        <p><strong>Core Functionality Status:</strong> <span class="status-warning">PARTIALLY WORKING</span></p>
+        <p>The referral system successfully:</p>
+        <ul>
+            <li><span class="emoji">✅</span> Creates referral relationships</li>
+            <li><span class="emoji">✅</span> Assigns and displays referral codes</li>
+            <li><span class="emoji">✅</span> Shows upline connections to referred members</li>
+            <li><span class="emoji">❌</span> Does NOT show downline connections to referrers</li>
+        </ul>
+        <p><strong>Recommendation:</strong> Investigate why the downline information (referred members) is not being displayed in the referrer's account. The database relationship appears to exist (as evidenced by the upline showing correctly), but the query or display logic for showing downlines needs to be debugged.</p>
+        <p><strong>Priority:</strong> <span class="status-warning">MEDIUM-HIGH</span> - This is a user-facing issue that affects the referral program's transparency and user engagement.</p>
+
+        <hr>
+
+        <h2>Test Accounts Used</h2>
+
+        <div class="account-info">
+            <h3>1. Referrer Account:</h3>
+            <ul>
+                <li><strong>Email:</strong> testmember@example.com</li>
+                <li><strong>Referral Code:</strong> <code>TEVEY8RK</code></li>
+            </ul>
+        </div>
+
+        <div class="account-info">
+            <h3>2. Referred Account (Created during test):</h3>
+            <ul>
+                <li><strong>Email:</strong> newmember1763787286071@example.com</li>
+                <li><strong>Referral Code:</strong> <code>NEL7KRKD</code></li>
+                <li><strong>Referred By:</strong> <code>TEVEY8RK</code></li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <h2>Test Environment</h2>
+        <ul>
+            <li><strong>Browser:</strong> Playwright (Chromium)</li>
+            <li><strong>Testing Framework:</strong> Playwright MCP</li>
+            <li><strong>Test Duration:</strong> ~10 minutes</li>
+            <li><strong>Date:</strong> November 22, 2025 04:53-05:01 UTC</li>
+        </ul>
+    </div>
+</body>
+</html>
+

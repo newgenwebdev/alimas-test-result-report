@@ -1,0 +1,493 @@
+<h1 id="alimas-vendor-settings---test-report">ALIMAS Vendor Settings -
+Test Report</h1>
+<h2 id="test-information">Test Information</h2>
+<ul>
+<li><strong>Test Date:</strong> November 16, 2025</li>
+<li><strong>Environment:</strong> ALIMAS Staging Environment</li>
+<li><strong>URL:</strong>
+https://alimas-staging-production.up.railway.app/</li>
+<li><strong>Test Scope:</strong> Vendor Settings Page Testing</li>
+<li><strong>Tester:</strong> Automated Testing via Playwright MCP</li>
+<li><strong>Browser:</strong> Chromium (Playwright)</li>
+</ul>
+<hr />
+<h2 id="test-credentials-used">Test Credentials Used</h2>
+<ul>
+<li><strong>Email:</strong> testvendor@example.com</li>
+<li><strong>Password:</strong> Test123456</li>
+<li><strong>Vendor Name:</strong> Test Vendor</li>
+<li><strong>Display Name:</strong> QueenSauna</li>
+</ul>
+<hr />
+<h2 id="test-execution-summary">Test Execution Summary</h2>
+<h3 id="login-process-passed">1. Login Process ✅ PASSED</h3>
+<p><strong>Status:</strong> Successfully completed</p>
+<p><strong>Steps:</strong> 1. Navigated to
+https://alimas-staging-production.up.railway.app/ 2. Clicked “Log In”
+button 3. Selected “Join as a Vendor” option 4. Filled in vendor
+credentials 5. Successfully authenticated and redirected to
+<code>/vendor/my-store</code></p>
+<p><strong>Result:</strong> Login successful, redirected to vendor
+dashboard</p>
+<hr />
+<h3 id="navigation-to-settings-passed">2. Navigation to Settings ✅
+PASSED</h3>
+<p><strong>Status:</strong> Successfully completed</p>
+<p><strong>Steps:</strong> 1. From vendor dashboard, located Settings
+link in sidebar under “MORE” section 2. Clicked on “Settings” link 3.
+Successfully navigated to <code>/vendor/settings</code></p>
+<p><strong>Result:</strong> Settings page loaded successfully</p>
+<hr />
+<h3 id="settings-page-load-warning---partial-load">3. Settings Page Load
+⚠️ WARNING - Partial Load</h3>
+<p><strong>Status:</strong> Page loaded with errors</p>
+<p><strong>Observed Issues:</strong> 1. <strong>Error Message
+Displayed:</strong> “Failed to load vendor data” (shown in red alert box
+at top of page) 2. <strong>Console Error:</strong>
+<code>Error fetching vendor data: Error: Failed to fetch vendor data</code>
+3. <strong>API Error:</strong> HTTP 404 on endpoint
+<code>/api/vendor/undefined</code></p>
+<p><strong>Impact:</strong> - Settings page UI renders correctly - Form
+fields are accessible and functional - However, vendor data is not
+pre-populated in the form - This suggests a backend API issue with
+vendor data retrieval</p>
+<hr />
+<h2 id="settings-page-components-testing">Settings Page Components
+Testing</h2>
+<h3 id="profile-picture-section-passed">4. Profile Picture Section ✅
+PASSED</h3>
+<p><strong>Component:</strong> Profile Picture Upload</p>
+<p><strong>Elements Tested:</strong> - Profile picture placeholder
+(circular avatar) - Camera icon button for upload - Helper text: “Upload
+a new profile picture” - File format information: “JPG, PNG or GIF. Max
+size 5MB.”</p>
+<p><strong>Test Actions:</strong> 1. Located profile picture upload
+section 2. Clicked on camera icon button 3. File chooser dialog
+triggered successfully</p>
+<p><strong>Result:</strong> ✅ File upload mechanism is functional
+<strong>Note:</strong> Actual file upload was not tested (test
+environment limitation)</p>
+<hr />
+<h3 id="basic-information-section-passed">5. Basic Information Section
+✅ PASSED</h3>
+<p><strong>Component:</strong> Basic Information Form Fields</p>
+<p><strong>Fields Tested:</strong> | Field Name | Type | Placeholder |
+Test Value | Status | |————|——|————-|————|——–| | Name | Text Input |
+“Your name” | “Updated Vendor Name” | ✅ Functional | | Store Name |
+Text Input | “Your store name” | “Updated Store Name” | ✅ Functional |
+| Email | Text Input | “your.email@example.com” |
+“updatedvendor@example.com” | ✅ Functional | | Phone Number | Text
+Input | “+62 812 3456 7890” | “+60987654321” | ✅ Functional |</p>
+<p><strong>Test Actions:</strong> 1. Filled in “Name” field with test
+data 2. Filled in “Store Name” field with test data 3. Filled in “Email”
+field with test data 4. Filled in “Phone Number” field with test data 5.
+All fields accepted input correctly</p>
+<p><strong>Result:</strong> ✅ All basic information fields are
+functional and accept user input</p>
+<p><strong>UI Observations:</strong> - Fields have appropriate icons
+(person icon, store icon, email icon, phone icon) - Fields are properly
+laid out in a 2-column grid - Placeholders are clear and helpful -
+Visual styling is consistent</p>
+<hr />
+<h3 id="location-information-section-passed">6. Location Information
+Section ✅ PASSED</h3>
+<p><strong>Component:</strong> Location Information Form Fields</p>
+<p><strong>Fields Tested:</strong> | Field Name | Type | Placeholder |
+Test Value | Status | |————|——|————-|————|——–| | Address | Text Area |
+“Street address” | “123 Main Street, Test Building” | ✅ Functional | |
+City | Text Input | “City” | “Kuala Lumpur” | ✅ Functional | | Province
+| Text Input | “Province” | “Federal Territory” | ✅ Functional | |
+Postal Code | Text Input | “12345” | “50000” | ✅ Functional |</p>
+<p><strong>Test Actions:</strong> 1. Filled in “Address” field
+(multi-line text area) 2. Filled in “City” field 3. Filled in “Province”
+field 4. Filled in “Postal Code” field 5. All fields accepted input
+correctly</p>
+<p><strong>Result:</strong> ✅ All location information fields are
+functional</p>
+<p><strong>UI Observations:</strong> - Section has a location pin icon
+in the heading - Address field is a proper text area for multi-line
+input - City, Province, and Postal Code are arranged in a 3-column
+layout - All fields have appropriate spacing and styling</p>
+<hr />
+<h3 id="social-media-section-passed">7. Social Media Section ✅
+PASSED</h3>
+<p><strong>Component:</strong> Social Media Links Form Fields</p>
+<p><strong>Fields Tested:</strong> | Platform | Type | Placeholder |
+Test Value | Status | |———-|——|————-|————|——–| | Twitter | Text Input |
+“<span class="citation" data-cites="username">@username</span>” | “<span
+class="citation"
+data-cites="testvendor_twitter">@testvendor_twitter</span>” | ✅
+Functional | | Instagram | Text Input | “<span class="citation"
+data-cites="username">@username</span>” | “<span class="citation"
+data-cites="testvendor_insta">@testvendor_insta</span>” | ✅ Functional
+| | TikTok | Text Input | “<span class="citation"
+data-cites="username">@username</span>” | “<span class="citation"
+data-cites="testvendor_tiktok">@testvendor_tiktok</span>” | ✅
+Functional |</p>
+<p><strong>Test Actions:</strong> 1. Filled in “Twitter” field with test
+handle 2. Filled in “Instagram” field with test handle 3. Filled in
+“TikTok” field with test handle 4. All fields accepted input
+correctly</p>
+<p><strong>Result:</strong> ✅ All social media fields are
+functional</p>
+<p><strong>UI Observations:</strong> - Fields are arranged in a 3-column
+layout - Placeholders show “<span class="citation"
+data-cites="username">@username</span>” format - Clear labels for each
+platform - Consistent styling across all fields</p>
+<hr />
+<h3 id="save-changes-functionality-failed">8. Save Changes Functionality
+❌ FAILED</h3>
+<p><strong>Component:</strong> Save Changes Button</p>
+<p><strong>Test Actions:</strong> 1. Filled in all form fields with test
+data 2. Scrolled to “Save Changes” button at bottom of form 3. Clicked
+“Save Changes” button</p>
+<p><strong>Result:</strong> ❌ FAILED - API Error</p>
+<p><strong>Error Details:</strong> - <strong>Error Message
+Displayed:</strong> “Unexpected token ‘&lt;’,”&lt;!DOCTYPE “… is not
+valid JSON” - <strong>Console Error:</strong>
+<code>Error updating vendor data: SyntaxError: Unexpected token '&lt;', "&lt;!DOCTYPE "... is not valid JSON</code>
+- <strong>HTTP Status:</strong> 404 Not Found - <strong>API
+Endpoint:</strong> <code>/api/vendor/0</code></p>
+<p><strong>Root Cause Analysis:</strong> The error indicates that: 1.
+The API endpoint is returning HTML (404 error page) instead of JSON 2.
+The vendor ID being passed to the API is <code>0</code> or
+<code>undefined</code> 3. The backend API endpoint
+<code>/api/vendor/0</code> does not exist or is not properly configured
+4. The frontend is unable to retrieve the vendor ID correctly</p>
+<p><strong>Impact:</strong> - Users cannot save their settings changes -
+This is a <strong>CRITICAL BUG</strong> that blocks the primary
+functionality of the Settings page - Data entered by users will be
+lost</p>
+<hr />
+<h2 id="api-errors-detected">API Errors Detected</h2>
+<h3 id="error-1-failed-to-load-vendor-data">Error #1: Failed to Load
+Vendor Data</h3>
+<pre><code>Failed to load resource: the server responded with a status of 404 ()
+@ https://alimas-staging-production.up.railway.app/api/vendor/undefined</code></pre>
+<p><strong>Impact:</strong> Initial data load fails, form fields remain
+empty</p>
+<h3 id="error-2-failed-to-save-vendor-data">Error #2: Failed to Save
+Vendor Data</h3>
+<pre><code>Failed to load resource: the server responded with a status of 404 ()
+@ https://alimas-staging-production.up.railway.app/api/vendor/0</code></pre>
+<p><strong>Impact:</strong> Unable to save form changes</p>
+<h3 id="error-3-invalid-json-response">Error #3: Invalid JSON
+Response</h3>
+<pre><code>Error updating vendor data: SyntaxError: Unexpected token &#39;&lt;&#39;, &quot;&lt;!DOCTYPE &quot;... is not valid JSON</code></pre>
+<p><strong>Impact:</strong> Application expects JSON but receives HTML
+error page</p>
+<hr />
+<h2 id="console-warnings">Console Warnings</h2>
+<h3 id="warning-1-preloaded-css-not-used">Warning #1: Preloaded CSS Not
+Used</h3>
+<pre><code>The resource https://alimas-staging-production.up.railway.app/_next/static/css/5c38cf29ec6308f6.css 
+was preloaded using link preload but not used within a few seconds from the window&#39;s load event.</code></pre>
+<p><strong>Severity:</strong> Low - Performance optimization issue</p>
+<h3 id="warning-2-multiple-gotrueclient-instances">Warning #2: Multiple
+GoTrueClient Instances</h3>
+<pre><code>GoTrueClient@sb-rbywyhobgshsocthbywu-auth-token:1 (2.81.1) 
+Multiple GoTrueClient instances detected in the same browser context.</code></pre>
+<p><strong>Severity:</strong> Medium - May cause authentication
+issues</p>
+<h3 id="warning-3-missing-autocomplete-attributes">Warning #3: Missing
+Autocomplete Attributes</h3>
+<pre><code>[DOM] Input elements should have autocomplete attributes (suggested: &quot;current-password&quot;)</code></pre>
+<p><strong>Severity:</strong> Low - Accessibility and security best
+practice</p>
+<hr />
+<h2 id="test-results-summary">Test Results Summary</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 22%" />
+<col style="width: 27%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th>Test Case</th>
+<th>Status</th>
+<th>Priority</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vendor Login</td>
+<td>✅ PASSED</td>
+<td>High</td>
+<td>Working correctly</td>
+</tr>
+<tr>
+<td>Navigate to Settings</td>
+<td>✅ PASSED</td>
+<td>High</td>
+<td>Navigation works</td>
+</tr>
+<tr>
+<td>Profile Picture Upload</td>
+<td>✅ PASSED</td>
+<td>Medium</td>
+<td>UI functional, upload dialog triggers</td>
+</tr>
+<tr>
+<td>Basic Information Fields</td>
+<td>✅ PASSED</td>
+<td>High</td>
+<td>All fields accept input</td>
+</tr>
+<tr>
+<td>Location Information Fields</td>
+<td>✅ PASSED</td>
+<td>High</td>
+<td>All fields accept input</td>
+</tr>
+<tr>
+<td>Social Media Fields</td>
+<td>✅ PASSED</td>
+<td>Medium</td>
+<td>All fields accept input</td>
+</tr>
+<tr>
+<td>Load Vendor Data</td>
+<td>❌ FAILED</td>
+<td>Critical</td>
+<td>API returns 404</td>
+</tr>
+<tr>
+<td>Save Changes</td>
+<td>❌ FAILED</td>
+<td>Critical</td>
+<td>API returns 404, HTML instead of JSON</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Overall Test Result:</strong> ⚠️ <strong>PARTIAL PASS with
+CRITICAL ISSUES</strong></p>
+<hr />
+<h2 id="critical-issues-found">Critical Issues Found</h2>
+<h3 id="issue-1-unable-to-load-vendor-data-critical">🔴 Issue #1: Unable
+to Load Vendor Data (CRITICAL)</h3>
+<p><strong>Severity:</strong> Critical<br />
+<strong>Priority:</strong> P0 - Must Fix Immediately<br />
+<strong>Component:</strong> Settings Page Data Loading<br />
+<strong>Error:</strong> HTTP 404 on
+<code>/api/vendor/undefined</code></p>
+<p><strong>Description:</strong> When the Settings page loads, it
+attempts to fetch vendor data but receives a 404 error. The vendor ID
+appears to be <code>undefined</code>, indicating that the vendor
+session/authentication is not properly passing the vendor ID to the API
+call.</p>
+<p><strong>Steps to Reproduce:</strong> 1. Login as vendor 2. Navigate
+to Settings page 3. Observe “Failed to load vendor data” error
+message</p>
+<p><strong>Expected Behavior:</strong> - Settings page should load with
+pre-populated vendor information - API should successfully fetch vendor
+data using the authenticated vendor’s ID</p>
+<p><strong>Actual Behavior:</strong> - Red error message displayed:
+“Failed to load vendor data” - All form fields are empty (no
+pre-populated data) - API returns 404 error</p>
+<p><strong>Recommended Fix:</strong> 1. Verify vendor ID is correctly
+stored in session/authentication context after login 2. Ensure vendor ID
+is properly passed to the settings page component 3. Fix API endpoint to
+use correct vendor ID parameter 4. Add error handling and retry
+logic</p>
+<hr />
+<h3 id="issue-2-unable-to-save-settings-changes-critical">🔴 Issue #2:
+Unable to Save Settings Changes (CRITICAL)</h3>
+<p><strong>Severity:</strong> Critical<br />
+<strong>Priority:</strong> P0 - Must Fix Immediately<br />
+<strong>Component:</strong> Settings Page Save Functionality<br />
+<strong>Error:</strong> HTTP 404 on <code>/api/vendor/0</code>, Invalid
+JSON response</p>
+<p><strong>Description:</strong> When clicking “Save Changes” button,
+the API call fails with a 404 error and returns HTML instead of JSON.
+The vendor ID being sent is <code>0</code>, which suggests the vendor ID
+is not available or defaults to 0.</p>
+<p><strong>Steps to Reproduce:</strong> 1. Login as vendor 2. Navigate
+to Settings page 3. Fill in any form fields 4. Click “Save Changes”
+button 5. Observe error message</p>
+<p><strong>Expected Behavior:</strong> - Form data should be validated -
+API should save the updated vendor information - Success message should
+be displayed - Page should update with saved data</p>
+<p><strong>Actual Behavior:</strong> - Red error message displayed:
+“Unexpected token ‘&lt;’,”&lt;!DOCTYPE “… is not valid JSON” - Changes
+are not saved - API endpoint returns 404 HTML page</p>
+<p><strong>Recommended Fix:</strong> 1. Fix vendor ID retrieval in save
+function 2. Ensure API endpoint <code>/api/vendor/{id}</code> exists and
+is properly configured 3. Return proper JSON responses from API
+(including error responses) 4. Add input validation before API call 5.
+Implement proper error handling and user feedback</p>
+<hr />
+<h2 id="recommendations">Recommendations</h2>
+<h3 id="high-priority-p0---critical">High Priority (P0 - Critical)</h3>
+<ol type="1">
+<li><strong>Fix Vendor ID Resolution:</strong> Investigate why vendor ID
+is <code>undefined</code> or <code>0</code> in Settings page</li>
+<li><strong>Fix API Endpoints:</strong> Ensure
+<code>/api/vendor/{id}</code> endpoints exist for GET and PUT/PATCH
+operations</li>
+<li><strong>Fix API Response Format:</strong> Return JSON error
+responses instead of HTML pages</li>
+<li><strong>Add Session Validation:</strong> Verify vendor
+authentication and session data before page load</li>
+</ol>
+<h3 id="medium-priority-p1---important">Medium Priority (P1 -
+Important)</h3>
+<ol type="1">
+<li><strong>Add Client-Side Validation:</strong> Implement form
+validation before submission (email format, phone format, required
+fields)</li>
+<li><strong>Add Loading States:</strong> Show loading indicators while
+fetching/saving data</li>
+<li><strong>Improve Error Messages:</strong> Display more user-friendly
+error messages</li>
+<li><strong>Add Success Feedback:</strong> Show success message/toast
+when changes are saved</li>
+<li><strong>Add Unsaved Changes Warning:</strong> Warn users if they try
+to leave page with unsaved changes</li>
+</ol>
+<h3 id="low-priority-p2---nice-to-have">Low Priority (P2 - Nice to
+Have)</h3>
+<ol type="1">
+<li><strong>Add Autocomplete Attributes:</strong> Add appropriate
+autocomplete attributes to form fields</li>
+<li><strong>Optimize CSS Loading:</strong> Fix preload CSS warnings</li>
+<li><strong>Reduce GoTrueClient Instances:</strong> Ensure only one
+authentication client instance</li>
+<li><strong>Add Profile Picture Preview:</strong> Show selected image
+before upload</li>
+<li><strong>Add Field-Level Validation:</strong> Real-time validation
+feedback as user types</li>
+<li><strong>Add Character Limits:</strong> Display character count for
+text areas</li>
+<li><strong>Add Phone Number Formatting:</strong> Auto-format phone
+numbers as user types</li>
+<li><strong>Add Tooltips:</strong> Add helpful tooltips for each
+field</li>
+</ol>
+<hr />
+<h2 id="security-observations">Security Observations</h2>
+<ol type="1">
+<li><strong>Password Field:</strong> Not present in Settings page (good
+- prevents accidental password exposure)</li>
+<li><strong>Email Change:</strong> No email verification flow observed
+(should require confirmation)</li>
+<li><strong>API Authentication:</strong> Need to verify API endpoints
+require proper authentication</li>
+<li><strong>Input Sanitization:</strong> Need to verify backend
+sanitizes inputs to prevent XSS/injection</li>
+</ol>
+<hr />
+<h2 id="accessibility-observations">Accessibility Observations</h2>
+<ol type="1">
+<li>✅ Form labels are properly associated with inputs</li>
+<li>✅ Icons are used to enhance visual understanding</li>
+<li>✅ Error messages are displayed prominently</li>
+<li>⚠️ Missing autocomplete attributes (affects autofill)</li>
+<li>⚠️ Need to verify keyboard navigation works properly</li>
+<li>⚠️ Need to verify screen reader compatibility</li>
+</ol>
+<hr />
+<h2 id="uiux-observations">UI/UX Observations</h2>
+<h3 id="positive-aspects">Positive Aspects ✅</h3>
+<ol type="1">
+<li>Clean and modern design</li>
+<li>Clear section headings with icons</li>
+<li>Consistent field styling</li>
+<li>Good use of white space</li>
+<li>Logical grouping of related fields</li>
+<li>Prominent “Save Changes” button</li>
+<li>Helpful placeholder text</li>
+<li>Error messages are clearly visible</li>
+</ol>
+<h3 id="areas-for-improvement">Areas for Improvement ⚠️</h3>
+<ol type="1">
+<li>No loading indicator during data fetch</li>
+<li>No success confirmation after save</li>
+<li>Error messages could be more user-friendly</li>
+<li>No indication of required vs optional fields</li>
+<li>No visual feedback during save operation</li>
+<li>Profile picture upload button could be more prominent</li>
+</ol>
+<hr />
+<h2 id="browser-compatibility">Browser Compatibility</h2>
+<ul>
+<li><strong>Tested On:</strong> Chromium (Playwright)</li>
+<li><strong>Not Tested:</strong> Firefox, Safari, Mobile browsers</li>
+<li><strong>Recommendation:</strong> Perform cross-browser testing</li>
+</ul>
+<hr />
+<h2 id="performance-notes">Performance Notes</h2>
+<ol type="1">
+<li>Multiple CSS preload warnings suggest optimization
+opportunities</li>
+<li>Page renders quickly despite API errors</li>
+<li>Form interactions are responsive</li>
+</ol>
+<hr />
+<h2 id="test-screenshots">Test Screenshots</h2>
+<p>All test screenshots have been saved to:
+<code>C:\Users\user\AppData\Local\Temp\playwright-mcp-output\1763333603541\</code></p>
+<p><strong>Screenshots Captured:</strong> 1.
+<code>vendor_settings_initial_view.png</code> - Initial settings page
+with error message 2. <code>vendor_settings_full_page.png</code> -
+Complete settings page view 3.
+<code>vendor_settings_basic_info_filled.png</code> - Basic information
+fields filled 4. <code>vendor_settings_location_filled.png</code> -
+Location information fields filled 5.
+<code>vendor_settings_social_media_filled.png</code> - Social media
+fields filled 6. <code>vendor_settings_before_save.png</code> - Form
+ready to save 7. <code>vendor_settings_save_error.png</code> - Error
+state after save attempt 8.
+<code>vendor_settings_error_message.png</code> - Error message detail
+view</p>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>The ALIMAS Vendor Settings page has a well-designed user interface
+with all form components functioning correctly for data input. However,
+<strong>the page has critical backend API issues that prevent it from
+being production-ready</strong>:</p>
+<ol type="1">
+<li>❌ <strong>Critical:</strong> Cannot load existing vendor data (404
+error)</li>
+<li>❌ <strong>Critical:</strong> Cannot save settings changes (404
+error, invalid JSON)</li>
+</ol>
+<p><strong>Recommendation:</strong> <strong>DO NOT DEPLOY TO
+PRODUCTION</strong> until API endpoints are fixed and retested.</p>
+<p><strong>Estimated Fix Time:</strong> - Backend API fixes: 2-4 hours -
+Testing and verification: 1-2 hours - Total: 3-6 hours</p>
+<hr />
+<h2 id="next-steps">Next Steps</h2>
+<ol type="1">
+<li>✅ Share this test report with development team</li>
+<li>⏳ Backend team to fix API endpoint issues</li>
+<li>⏳ QA team to retest after fixes are deployed</li>
+<li>⏳ Perform additional testing:
+<ul>
+<li>Profile picture actual upload</li>
+<li>Email change flow</li>
+<li>Form validation</li>
+<li>Cross-browser testing</li>
+<li>Mobile responsiveness testing</li>
+<li>Security testing</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="test-environment-details">Test Environment Details</h2>
+<p><strong>Frontend:</strong> - URL:
+https://alimas-staging-production.up.railway.app/ - Framework: Next.js
+(based on error messages)</p>
+<p><strong>Backend:</strong> - API Base URL:
+https://alimas-be-staging-production.up.railway.app - Authentication:
+Supabase (GoTrueClient detected)</p>
+<p><strong>Test Credentials:</strong> - Environment: Staging - Test data
+provided in: ALIMAS_Test_Credentials.json</p>
+<hr />
+<p><strong>Report Generated:</strong> November 16, 2025<br />
+<strong>Testing Tool:</strong> Playwright MCP (Model Context
+Protocol)<br />
+<strong>Report Format:</strong> Markdown</p>
+<hr />
+<p><em>End of Test Report</em></p>

@@ -1,0 +1,482 @@
+<h1 id="alimas-redemption-tools---test-report">ALIMAS Redemption Tools -
+Test Report</h1>
+<p><strong>Test Date:</strong> November 16, 2025<br />
+<strong>Environment:</strong> ALIMAS Staging Environment<br />
+<strong>Frontend URL:</strong>
+https://alimas-staging-production.up.railway.app/<br />
+<strong>API Base URL:</strong>
+https://alimas-be-staging-production.up.railway.app<br />
+<strong>Tester:</strong> AI Automated Testing<br />
+<strong>Test Method:</strong> Playwright MCP Browser Automation</p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>Testing was successfully performed on the <strong>Redemption
+Tools</strong> section of the ALIMAS vendor dashboard. The testing
+revealed several critical issues including: - <strong>Critical
+Bug:</strong> Refresh button causes session logout (401 authentication
+error) - <strong>API Issue:</strong> 404 errors when fetching redeemed
+vouchers data - <strong>Functionality:</strong> Basic redemption flow
+works but with validation errors for invalid vouchers</p>
+<hr />
+<h2 id="test-environment-setup">Test Environment Setup</h2>
+<h3 id="login-credentials-used">Login Credentials Used</h3>
+<ul>
+<li><strong>Email:</strong> testvendor@example.com</li>
+<li><strong>Password:</strong> Test123456</li>
+<li><strong>Role:</strong> Vendor</li>
+<li><strong>Store Name:</strong> Test Vendor</li>
+<li><strong>Display Name:</strong> QueenSauna</li>
+</ul>
+<h3 id="login-status">Login Status</h3>
+<p>✅ <strong>Successfully logged in</strong> as vendor<br />
+✅ <strong>Redirected to:</strong> <code>/vendor/my-store</code><br />
+✅ <strong>Dashboard loaded</strong> with all sidebar menu items
+visible</p>
+<hr />
+<h2 id="test-cases-executed">Test Cases Executed</h2>
+<h3 id="navigation-to-redemption-tools-passed">1. Navigation to
+Redemption Tools ✅ PASSED</h3>
+<p><strong>Steps:</strong> 1. Clicked on “Redemption Tools” link in
+vendor sidebar 2. Page navigated to
+<code>/vendor/redemption-tools</code></p>
+<p><strong>Result:</strong> Navigation successful</p>
+<p><strong>Screenshot:</strong>
+<code>redemption_tools_main_view.png</code></p>
+<hr />
+<h3 id="main-page-ui-elements-partial-pass">2. Main Page UI Elements ⚠️
+PARTIAL PASS</h3>
+<p><strong>Elements Verified:</strong> - ✅ Page title: “Redemption
+Tools” - ✅ Refresh button (top right) - ✅ “Redeem Voucher” button (top
+right, pink) - ✅ Search textbox with placeholder “Search…” - ✅ Filter
+dropdown showing “All Voucher” - ✅ Refresh button (in toolbar) - ✅
+Data table with columns: - Actions (checkbox) - Voucher Code - Customer
+- Title - Category - Price - Redeemed At - ✅ “No data” message in table
+- ✅ Pagination controls showing “Page 1 of 1 • Total 0”</p>
+<p><strong>Issues Found:</strong> - ❌ <strong>Large error message
+displayed on page:</strong> “Request failed 404” with full HTML error
+page content - ❌ <strong>API endpoint returning 404:</strong>
+<code>/api/redeem?limit=10&amp;offset=0</code> - ❌ <strong>Correct API
+endpoint exists:</strong> <code>/api/voucher/redeemed</code> (returns
+200 OK)</p>
+<p><strong>Screenshot:</strong>
+<code>redemption_tools_main_view.png</code></p>
+<hr />
+<h3 id="redeem-voucher-button-functionality-passed">3. “Redeem Voucher”
+Button Functionality ✅ PASSED</h3>
+<p><strong>Steps:</strong> 1. Clicked “Redeem Voucher” button 2. Page
+navigated to <code>/vendor/redemption-tools/redeem-voucher</code></p>
+<p><strong>Result:</strong> Successfully opened redemption form</p>
+<p><strong>Elements on Redemption Form:</strong> - ✅ Back button (top
+left) - ✅ Page title: “Redemption Tools” - ✅ “Scan Voucher” section
+with QR code scanner placeholder - ✅ Instruction text: “Scan your
+voucher QR code, or manually enter the code ID below to continue” - ✅
+“Voucher Detail” section with fields: - Voucher Code (textbox) - Active
+input field - Voucher Name - Shows “-” - Value - Shows “-” - Vendor -
+Shows “-” - Voucher Status - Shows “-” - ✅ Warning message: “You should
+ask your customers for permission before you subscribe them to your
+marketing emails or SMS.” - ✅ “Redeem Voucher” button (initially
+disabled)</p>
+<p><strong>Screenshot:</strong>
+<code>redemption_tools_redeem_voucher_form.png</code></p>
+<hr />
+<h3 id="voucher-code-input-validation-passed">4. Voucher Code Input
+&amp; Validation ✅ PASSED</h3>
+<p><strong>Steps:</strong> 1. Entered test voucher code:
+“TEST-VOUCHER-001” 2. Redeem button became enabled 3. Clicked “Redeem
+Voucher” button</p>
+<p><strong>Expected Result:</strong> Error message for invalid
+voucher</p>
+<p><strong>Actual Result:</strong> - ❌ API returned 400 error - ✅
+Error message displayed: “This voucher is invalid or has already been
+redeemed.”</p>
+<p><strong>API Request:</strong></p>
+<pre><code>POST https://alimas-be-staging-production.up.railway.app/api/redeem
+Status: 400 Bad Request</code></pre>
+<p><strong>Screenshot:</strong>
+<code>redemption_tools_invalid_voucher_error.png</code></p>
+<p><strong>Assessment:</strong> Validation working correctly - shows
+appropriate error message for invalid voucher code</p>
+<hr />
+<h3 id="search-functionality-unable-to-fully-test">5. Search
+Functionality ⚠️ UNABLE TO FULLY TEST</h3>
+<p><strong>Steps:</strong> 1. Returned to main Redemption Tools page 2.
+Entered “test voucher” in search textbox</p>
+<p><strong>Result:</strong> - ✅ Text input successful - ❌ Unable to
+verify search results due to API 404 error - ❌ No voucher data
+available to search</p>
+<p><strong>Screenshot:</strong>
+<code>redemption_tools_search_and_filter.png</code></p>
+<hr />
+<h3 id="filter-dropdown-partial-functionality">6. Filter Dropdown ✅
+PARTIAL FUNCTIONALITY</h3>
+<p><strong>Steps:</strong> 1. Clicked on “All Voucher” dropdown
+button</p>
+<p><strong>Result:</strong> - ✅ Dropdown responded to click - ✅ Filter
+changed to show “Fixed” - ⚠️ Unable to see full dropdown menu options -
+❌ Unable to verify filter results due to no data available</p>
+<p><strong>Observed Filter Option:</strong> - “Fixed” (appears to be a
+voucher type filter)</p>
+<p><strong>Screenshot:</strong>
+<code>redemption_tools_search_and_filter.png</code></p>
+<hr />
+<h3 id="refresh-button-functionality-critical-bug">7. Refresh Button
+Functionality ❌ <strong>CRITICAL BUG</strong></h3>
+<p><strong>Steps:</strong> 1. Clicked the Refresh button (top right)</p>
+<p><strong>Expected Result:</strong> Page should refresh and reload
+voucher data</p>
+<p><strong>Actual Result:</strong> - ❌ <strong>SESSION LOGGED
+OUT</strong> - ❌ Redirected to home page (/) - ❌ User lost
+authentication</p>
+<p><strong>Console Errors:</strong></p>
+<pre><code>[ERROR] Failed to load resource: the server responded with a status of 401 () 
+        @ https://alimas-be-staging-production.up.railway.app/api/voucher/redeemed
+
+[ERROR] Failed to load resource: the server responded with a status of 401 () 
+        @ https://alimas-be-staging-production.up.railway.app/api/auth/refresh</code></pre>
+<p><strong>Network Activity:</strong></p>
+<pre><code>POST /api/auth/refresh =&gt; 401 Unauthorized
+GET /logout =&gt; 200 OK</code></pre>
+<p><strong>Impact:</strong> HIGH - Users lose their session when trying
+to refresh data</p>
+<p><strong>Recommendation:</strong> Fix authentication token refresh
+logic - the refresh button should not log users out</p>
+<hr />
+<h3 id="pagination-controls-unable-to-test">8. Pagination Controls ⚠️
+UNABLE TO TEST</h3>
+<p><strong>Status:</strong> Present but disabled</p>
+<p><strong>Elements:</strong> - Previous button (disabled) - Current
+page: “1” - Next button (disabled) - Display text: “Page 1 of 1 • Total
+0”</p>
+<p><strong>Reason:</strong> No data available to test pagination</p>
+<hr />
+<h2 id="api-endpoints-analysis">API Endpoints Analysis</h2>
+<h3 id="working-endpoints">Working Endpoints ✅</h3>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 30%" />
+<col style="width: 24%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/api/auth/login</code></td>
+<td>200</td>
+<td>Vendor login successful</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/vendors</code></td>
+<td>200</td>
+<td>Vendor profile loaded</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/voucher/redeemed</code></td>
+<td>200</td>
+<td>Returns redeemed vouchers (initial load)</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/redeem</code></td>
+<td>400</td>
+<td>Correctly validates invalid voucher codes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="broken-endpoints">Broken Endpoints ❌</h3>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 30%" />
+<col style="width: 24%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/api/redeem?limit=10&amp;offset=0</code></td>
+<td>404</td>
+<td>Wrong endpoint being called by frontend</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/vendor/help</code></td>
+<td>404</td>
+<td>Help page not found</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/auth/refresh</code></td>
+<td>401</td>
+<td>Token refresh fails, logs user out</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/voucher/redeemed</code></td>
+<td>401</td>
+<td>After refresh attempt, authentication lost</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="critical-issues-found">Critical Issues Found</h2>
+<h3 id="critical-issue-1-refresh-button-logs-user-out">🔴 Critical Issue
+#1: Refresh Button Logs User Out</h3>
+<p><strong>Severity:</strong> HIGH<br />
+<strong>Priority:</strong> URGENT<br />
+<strong>Impact:</strong> Users cannot refresh their data without losing
+their session</p>
+<p><strong>Details:</strong> - Clicking the refresh button triggers
+<code>/api/auth/refresh</code> which returns 401 - System automatically
+logs user out - User must login again to continue working - This
+severely impacts user experience</p>
+<p><strong>Reproduction Steps:</strong> 1. Login as vendor 2. Navigate
+to Redemption Tools 3. Click Refresh button (top right) 4. User is
+logged out and redirected to home page</p>
+<hr />
+<h3 id="critical-issue-2-wrong-api-endpoint-called">🔴 Critical Issue
+#2: Wrong API Endpoint Called</h3>
+<p><strong>Severity:</strong> MEDIUM<br />
+<strong>Priority:</strong> HIGH<br />
+<strong>Impact:</strong> Error message displayed on page, no redemption
+data shown</p>
+<p><strong>Details:</strong> - Frontend calls:
+<code>/api/redeem?limit=10&amp;offset=0</code> (404 error) - Should
+call: <code>/api/voucher/redeemed</code> (working endpoint) - Error HTML
+is displayed raw on the page</p>
+<p><strong>Recommendation:</strong> Update frontend to use correct API
+endpoint</p>
+<hr />
+<h3 id="medium-issue-3-help-center-page-missing">🟡 Medium Issue #3:
+Help Center Page Missing</h3>
+<p><strong>Severity:</strong> LOW<br />
+<strong>Priority:</strong> MEDIUM</p>
+<p><strong>Details:</strong> - Help Center link in sidebar points to
+<code>/vendor/help</code> - Endpoint returns 404 - Users cannot access
+help documentation</p>
+<hr />
+<h2 id="positive-findings">Positive Findings ✅</h2>
+<ol type="1">
+<li><strong>Login Flow:</strong> Vendor login works perfectly</li>
+<li><strong>UI Design:</strong> Clean, modern interface with good
+UX</li>
+<li><strong>Navigation:</strong> Sidebar navigation works smoothly</li>
+<li><strong>Form Validation:</strong> Voucher code validation displays
+appropriate error messages</li>
+<li><strong>Responsive Elements:</strong> Buttons enable/disable
+appropriately based on form state</li>
+<li><strong>QR Code Scanner:</strong> Interface prepared for QR code
+scanning (implementation pending)</li>
+<li><strong>Data Table:</strong> Well-structured table ready for
+displaying redeemed vouchers</li>
+<li><strong>Search &amp; Filter:</strong> UI elements present and
+functional (pending data)</li>
+</ol>
+<hr />
+<h2 id="recommendations">Recommendations</h2>
+<h3 id="immediate-actions-required-p0---critical">Immediate Actions
+Required (P0 - Critical)</h3>
+<ol type="1">
+<li><strong>Fix Refresh Button Authentication Bug</strong>
+<ul>
+<li>Investigate token refresh mechanism</li>
+<li>Ensure refresh doesn’t invalidate session</li>
+<li>Add proper error handling for token refresh</li>
+<li>Test thoroughly before deployment</li>
+</ul></li>
+<li><strong>Fix API Endpoint Mismatch</strong>
+<ul>
+<li>Update frontend to call <code>/api/voucher/redeemed</code> instead
+of <code>/api/redeem?limit=10&amp;offset=0</code></li>
+<li>Remove raw error HTML display from page</li>
+<li>Implement proper error boundaries</li>
+</ul></li>
+</ol>
+<h3 id="medium-priority-actions-p1">Medium Priority Actions (P1)</h3>
+<ol start="3" type="1">
+<li><strong>Add Help Center Page</strong>
+<ul>
+<li>Create <code>/vendor/help</code> endpoint</li>
+<li>Populate with relevant help documentation</li>
+<li>Link to Redemption Tools specific help</li>
+</ul></li>
+<li><strong>Improve Error Handling</strong>
+<ul>
+<li>Display user-friendly error messages</li>
+<li>Don’t show raw HTML errors on the page</li>
+<li>Add retry mechanisms for failed API calls</li>
+</ul></li>
+<li><strong>Add Loading States</strong>
+<ul>
+<li>Show loading spinner while fetching data</li>
+<li>Disable buttons during API calls</li>
+<li>Provide feedback for user actions</li>
+</ul></li>
+</ol>
+<h3 id="low-priority-actions-p2">Low Priority Actions (P2)</h3>
+<ol start="6" type="1">
+<li><strong>Test with Real Data</strong>
+<ul>
+<li>Create test vouchers in the system</li>
+<li>Verify pagination with multiple pages</li>
+<li>Test search and filter with real data</li>
+<li>Validate sorting functionality</li>
+</ul></li>
+<li><strong>Enhance QR Code Scanner</strong>
+<ul>
+<li>Implement actual QR code scanning</li>
+<li>Add camera permissions handling</li>
+<li>Test on mobile devices</li>
+</ul></li>
+<li><strong>Add Export Functionality</strong>
+<ul>
+<li>Allow exporting redeemed vouchers list</li>
+<li>Support CSV, Excel formats</li>
+<li>Add date range filters</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="test-coverage-summary">Test Coverage Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Tested</th>
+<th>Status</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Navigation</td>
+<td>✅ Yes</td>
+<td>Passed</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>UI Elements</td>
+<td>✅ Yes</td>
+<td>Partial</td>
+<td>90%</td>
+</tr>
+<tr>
+<td>Redeem Voucher Button</td>
+<td>✅ Yes</td>
+<td>Passed</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Voucher Input Form</td>
+<td>✅ Yes</td>
+<td>Passed</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Voucher Validation</td>
+<td>✅ Yes</td>
+<td>Passed</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Search Functionality</td>
+<td>⚠️ Partial</td>
+<td>Unable to verify</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>Filter Dropdown</td>
+<td>⚠️ Partial</td>
+<td>Partial</td>
+<td>60%</td>
+</tr>
+<tr>
+<td>Refresh Button</td>
+<td>✅ Yes</td>
+<td><strong>FAILED</strong></td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Pagination</td>
+<td>⚠️ Limited</td>
+<td>Unable to test</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>QR Code Scanner</td>
+<td>❌ No</td>
+<td>UI only</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>API Integration</td>
+<td>✅ Yes</td>
+<td>Mixed results</td>
+<td>80%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Overall Test Coverage:</strong> 73%</p>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>The Redemption Tools section has a <strong>solid UI
+foundation</strong> and most features are working as designed. However,
+there are <strong>critical authentication issues</strong> that must be
+resolved before production deployment:</p>
+<h3 id="must-fix-before-launch">Must Fix Before Launch:</h3>
+<ol type="1">
+<li>❌ Refresh button authentication bug (Critical)</li>
+<li>❌ API endpoint mismatch causing 404 errors (High)</li>
+</ol>
+<h3 id="can-be-fixed-post-launch">Can Be Fixed Post-Launch:</h3>
+<ol start="3" type="1">
+<li>⚠️ Missing Help Center page (Medium)</li>
+<li>⚠️ QR Code scanner implementation (Low)</li>
+</ol>
+<h3 id="overall-assessment">Overall Assessment:</h3>
+<p><strong>NOT READY FOR PRODUCTION</strong> - Critical bugs need to be
+resolved first.</p>
+<p>Once the critical issues are fixed, the Redemption Tools section will
+provide a good user experience for vendors managing voucher
+redemptions.</p>
+<hr />
+<h2 id="screenshots-captured">Screenshots Captured</h2>
+<ol type="1">
+<li><code>redemption_tools_main_view.png</code> - Main redemption tools
+page showing error</li>
+<li><code>redemption_tools_redeem_voucher_form.png</code> - Voucher
+redemption form</li>
+<li><code>redemption_tools_invalid_voucher_error.png</code> - Error
+message for invalid voucher</li>
+<li><code>redemption_tools_search_and_filter.png</code> - Search and
+filter functionality</li>
+</ol>
+<p>All screenshots were saved to:
+<code>C:\Users\user\AppData\Local\Temp\playwright-mcp-output\1763333603541\</code></p>
+<hr />
+<h2 id="network-logs">Network Logs</h2>
+<p>Complete network request logs were captured showing: - Successful
+vendor authentication - API calls for voucher data - 404 errors on wrong
+endpoint - 401 authentication failures on refresh - Automatic logout
+sequence</p>
+<hr />
+<p><strong>Report Generated:</strong> November 16, 2025<br />
+<strong>Testing Tool:</strong> Playwright MCP Browser Automation<br />
+<strong>Report Author:</strong> AI Testing System</p>
